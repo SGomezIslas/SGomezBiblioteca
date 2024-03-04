@@ -1,0 +1,47 @@
+﻿@model ML.Libro
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Formulario de la libreria</h1>
+<div class="container">
+    @using (Html.BeginForm("Form", "Libro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.IdLibro)
+        <div class="row pb-md-3">
+            <div class="col-md-4">
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Nombre del Libro" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(model => model.Autor, new { @class = "form-control", @placeholder = "Autor" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(model => model.Editorial, new { @class = "form-control", @placeholder = "Editorial" })
+            </div>
+        </div>
+        <div class="row pb-md-3">
+            <div class="col-md-4">
+                @Html.TextBoxFor(model => model.NumeroPaginas, new { @class = "form-control", @placeholder = "NumeroPaginas" })
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.Genero.IdGenero, new SelectList(Model.Genero.Generos, "IdGenero", "Nombre"), "Selecciona un genero", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row pb-md-3">
+            @if (Model.IdGenero == 0)
+            {
+                <button class="btn btn-outline-success col-md-6 rounded-pill" type="submit">
+                    Agregar
+                </button>
+            }
+            else
+            {
+                <button class="btn btn-outline-primary col-md-6" type="submit">
+                    Actualizar
+                </button>
+            }
+            <a class="btn btn-outline-warning col-md-6 rounded-pill" href="@Url.Action("GetAll", "Genero")">Cancelar</a>
+        </div>
+    }
+</div>

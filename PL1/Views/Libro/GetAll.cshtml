@@ -1,0 +1,51 @@
+﻿@model ML.Libro
+@{
+    ViewData["Title"] = "GetAll";
+}
+
+<h1 class="text text-center">Libros</h1>
+
+<div>
+    <a href="@Url.Action("Form","Libro")" class="btn btn-outline-success me-md-5"><i class="bi bi-person-add"></i></a>
+</div>
+
+@if (Model == null)
+{
+    <div class="alert alert-warning" role="alert">
+        Error!
+    </div>
+}
+else
+{
+        <div class=" table-responsive">
+            <table class="table table-dark table-hover" id="tabla">
+                <thead class="table-secondary">
+                    <tr class="text-center">
+                        <th>editar</th>
+                        <th>IdLibro</th>
+                        <th>Libro</th>
+                        <th>Editorial</th>
+                        <th>Autor</th>
+                        <th>Numero de paginas</th>
+                        <th>IdGenero</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Libro libro in Model.libross)
+                    {
+                        <tr>
+                            <td><a href="@Url.Action("Form", "Libro", new { IdLibro = libro.IdLibro})" class="btn btn-warning">Editar</a> </td>
+                            <td>@libro.IdLibro</td>
+                            <td>@libro.Librs</td>
+                            <td>@libro.Editorial</td>
+                            <td>@libro.Autor</td>
+                            <td>@libro.NumeroPaginas</td>
+                            <td>@libro.IdGenero</td>
+                            <td><a href="@Url.Action("Delete", "Libro", new{IdLibro = libro.IdLibro})" class="btn btn-danger">Eliminar</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
